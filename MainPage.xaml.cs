@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
 namespace WeatherApp;
 
@@ -12,15 +13,27 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
-
-	// fetch weather data from the API
-	private async Task<WeatherResponse> GetWeatherData(string city, string apiKey)
+	private async Task<WeatherResponse?> GetWeatherData(string city, string apiKey)
 	{
 		string url = $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?key={apiKey}";
 
-		return await httpClient.GetFromJsonAsync<WeatherResponse>(url);
+		try
+		{
+			var response = await httpClient.GetStringAsync(url);
+			Console.WriteLine(response); // Print raw JSON to check field names
+
+			WeatherResponse? weatherResponse = await httpClient.GetFromJsonAsync<WeatherResponse>(url);
+
+			// Return the weatherResponse, which can be null
+			return weatherResponse;
+		}
+		catch (HttpRequestException e)
+		{
+			Console.WriteLine($"Request error: {e.Message}");
+			return null; // Return null in case of an error
+		}
 	}
+
 	//Event Handler when 'get weather' button is clicked
 	private async void OnGetWeatherClicked(object sender, EventArgs e)
 	{
@@ -32,36 +45,43 @@ public partial class MainPage : ContentPage
 		try
 		{
 			var weatherData = await GetWeatherData(city, apiKey);
-			if (weatherData != null)
+			if (weatherData != null && weatherData.Days != null && weatherData.Days.Count > 0)
 			{
-				double minTemp = weatherData.days[0].tempMin;
-				double maxTemp = weatherData.days[0].temMax;
+				var today = weatherData.Days[0];
 
-				bool willRain = weatherData.days[0].precip > 0;
-				double windSpeed = weatherData.days[0].windspeed;
+				double minTemp = today.TempMin;
+				double maxTemp = today.TempMax;
+				bool willRain = today.Precip > 0;
+				double windSpeed = today.Windspeed;
 
-				WeatherLabel.Text = $"Min temp: {minTemp}\nMax Temp: {maxTemp}\nRain Forecast: {(willRain? "Yes":"No")}";
-				WindAlertLabel.Text = windSpeed > 4 ? "Alert: High wind speed!":"Wind speed is nornal.";
+				WeatherLabel.Text = $"Min Temp: {minTemp}°C\nMax Temp: {maxTemp}°C\nRain Forecast: {(willRain ? "Yes" : "No")}";
+				WindAlertLabel.Text = windSpeed > 4 ? "Alert: High wind speed!" : "Wind speed is nornal.";
 			}
 		}
 		catch (Exception ex)
 		{
-
-			throw;
+			WeatherLabel.Text = "Error retrieving weather data.";
+			Console.WriteLine($"Exception:{ex.Message}");
 		}
 	}
-}
 
+
+}
 //structure of weather response from the API
 public class WeatherResponse
 {
-	public List<WeatherDay> days { get; set; }
+	[JsonPropertyName("days")]
+	public List<WeatherDay>? Days { get; set; }
 }
 
 public class WeatherDay
 {
-	public double tempMin { get; set; }
-	public double temMax { get; set; }
-	public double precip { get; set; }
-	public double windspeed { get; set; }
+	[JsonPropertyName("tempmin")]
+	public double TempMin { get; set; }
+	[JsonPropertyName("tempmax")]
+	public double TempMax { get; set; }
+	[JsonPropertyName("precip")]
+	public double Precip { get; set; }
+	[JsonPropertyName("windspeed")]
+	public double Windspeed { get; set; }
 }

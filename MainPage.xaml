@@ -7,19 +7,19 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight"/>
 
+            <Label Text="Enter City"
+                   FontSize="18"/>
             <Entry x:Name="CityEntry"
-                    Placeholder="Enter city"/>
+                   Placeholder="Enter city"/>
+
             <Button Text="Get Weather"
                     Clicked="OnGetWeatherClicked"/>
 
-            <Label x:Name="WeatherLabel" FontSize="Medium"/>
-            <Label x:Name="WindAlertLabel" FontSize="Medium"/>
+            <Label x:Name="WeatherLabel"
+                   FontSize="Medium"/>
+            <Label x:Name="WindAlertLabel"
+                   FontSize="Medium"/>
 
 
 
