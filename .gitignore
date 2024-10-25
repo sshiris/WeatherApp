@@ -1,0 +1,55 @@
+# Ignore build outputs and temporary files
+bin/
+obj/
+*.user
+*.rsuser
+*.suo
+*.userprefs
+*.userosscache
+*.sln.docstates
+*.ncrunch*
+
+# DotNet specific
+project.lock.json
+project.fragment.lock.json
+*.pidb
+*.dotsettings
+.vs/
+.vscode/
+**/*.csproj.user
+**/*.dbmdl
+**/*.dbproj.schemaview
+**/*.pdb
+*.dbmdl
+*.cache/
+*.pfx
+*.snk
+.idea/
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xamarin/Mobile specific
+*.apk
+*.ap_
+*.dex
+*.so
+*.jar
+*.keystore
+*.jks
+
+# iOS specific
+*.app
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# MAUI-specific (especially for handling platform-specific artifacts)
+*.aab
+*.apks
+*.xcarchive
+
+# Node/NPM (often used for MAUI front-end tooling)
+node_modules/
