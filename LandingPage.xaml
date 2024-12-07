@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.LandingPage">
+
+    <VerticalStackLayout Padding="30,50"
+            Spacing="20">
+        <Label Text="Weather And Todo Dashboard"
+               FontSize="24"
+               HorizontalOptions="Center"/>
+
+        <Label x:Name="WeatherSummaryLabel"
+               FontSize="18"/>
+
+        <Label x:Name="TodoSummaryLabel"
+               FontSize="18"/>
+
+        <Button Text="View Weather"
+                Clicked="OnViewWeatherClicked"/>
+
+        <Button Text="View Todo List"
+                Clicked="OnViewTodoClicked"/>
+    </VerticalStackLayout>
+</ContentPage>
