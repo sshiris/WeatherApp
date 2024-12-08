@@ -29,7 +29,7 @@ public partial class LandingPage : ContentPage
                 WeatherSummaryLabel.Text = $"unable to load weather data.";
             }
 
-            int todoCount = TodoStorage.GetTodosForToday().Count;
+            int todoCount = TodoStorage.GetAllTodos().Count;
             TodoSummaryLabel.Text = $"Today's Todos:{todoCount}";
         }
         catch (Exception ex)
@@ -38,6 +38,12 @@ public partial class LandingPage : ContentPage
             WeatherSummaryLabel.Text = "Error loading dashboard data.";
             TodoSummaryLabel.Text = "";
         }
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        LoadDashboardData();
     }
 
     private async void OnViewWeatherClicked(object sender, EventArgs e)
