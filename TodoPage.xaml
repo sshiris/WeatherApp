@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.TodoPage">
+
+    <VerticalStackLayout Padding="20"
+                         Spacing="15">
+        <Label Text="Todo List"
+               FontSize="24"
+               HorizontalOptions="Center"/>
+
+        <Entry x:Name="NewTodoEntry"
+               Placeholder="Enter a new todo item"/>
+
+        <Button Text="Add todo"
+                Clicked="OnAddTodoClicked"/>
+
+        <CollectionView x:Name="TodoListView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="10">
+                        <Label Text="{Binding}"/>
+                        <Button Text="Delete"
+                                Clicked="OnDeleteTodoClicked"
+                                CommandParameter="{Binding}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
