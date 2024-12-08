@@ -13,7 +13,7 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 	}
-	private async Task<WeatherResponse?> GetWeatherData(string city, string apiKey)
+	public async Task<WeatherResponse?> GetWeatherData(string city, string apiKey)
 	{
 		string url = $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}?key={apiKey}";
 
