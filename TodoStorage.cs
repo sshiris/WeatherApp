@@ -1,8 +1,10 @@
+using System.Collections.ObjectModel;
+
 namespace WeatherApp;
 
 public static class TodoStorage
 {
-    private static List<string> todos = new();
+    private static ObservableCollection<string> todos = new();
 
     public static void AddTodo(string todo)
     {
@@ -12,7 +14,7 @@ public static class TodoStorage
     {
         todos.Remove(todo);
     }
-    public static List<string> GetAllTodos()
+    public static ObservableCollection<string> GetAllTodos()
     {
         return todos;
     }

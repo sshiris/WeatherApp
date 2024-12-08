@@ -20,13 +20,11 @@ public partial class TodoPage : ContentPage
         {
             TodoStorage.AddTodo(newTodo);
             NewTodoEntry.Text = "";
-            LoadTodos();
         }
     }
     private void OnDeleteTodoClicked(object sender, EventArgs e)
     {
         string todoDelete = (string)((Button)sender).CommandParameter;
         TodoStorage.RemoveTodo(todoDelete);
-        LoadTodos();
     }
 }
