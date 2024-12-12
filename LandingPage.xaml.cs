@@ -1,11 +1,21 @@
+using WeatherApp.Data;
+
 namespace WeatherApp;
 
 public partial class LandingPage : ContentPage
 {
-    public LandingPage()
+    private readonly AppDbContext _dbContext;
+    public LandingPage(AppDbContext dbContext)
     {
         InitializeComponent();
+        _dbContext = dbContext;
         LoadDashboardData();
+    }
+    private async void OnViewTodoClicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("Navigating to TodoPage...");
+        var todoPage = new TodoPage(_dbContext);
+        await Navigation.PushAsync(todoPage);
     }
 
     private async void LoadDashboardData()
@@ -50,8 +60,5 @@ public partial class LandingPage : ContentPage
     {
         await Navigation.PushAsync(new MainPage());
     }
-    private async void OnViewTodoClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new TodoPage());
-    }
+
 }
